@@ -5,7 +5,7 @@
 2,Stu Badcock,1.3827
 6,Hamilton Peacock,1,432
 5,Elias Sweet, 1.234567
-6, Barclay Rowland,  
+6, Barclay Rowland,
 7.Burt Alan,1.sdasd
 8,Terry Richardson,1.3454
 9,Dawson Rennold,5,332

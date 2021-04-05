@@ -1,12 +1,12 @@
-package com.company;
+package com.company.Infrastructure;
 
 import java.io.IOException;
 
 public class FileWriter {
-    private java.io.FileWriter fw;
+    private final java.io.FileWriter fw;
 
     public FileWriter(String path) throws IOException {
-       fw = new java.io.FileWriter(path);
+        fw = new java.io.FileWriter(path);
     }
 
     public void writeLineToFile(String line) throws IOException {
