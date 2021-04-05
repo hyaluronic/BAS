@@ -16,14 +16,14 @@ import static java.lang.Integer.parseInt;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        FileReader reader = new FileReader("/Users/user/Desktop/BAS/Programos duomenys.txt");
-        FileWriter writer = new FileWriter("/Users/user/Desktop/BAS/out.txt");
+        FileReader reader = new FileReader(Constants.INPUT_FILE);
+        FileWriter writer = new FileWriter(Constants.OUTPUT_FILE);
         List<Person> people = new ArrayList<>();
         List<String> allLines = reader.readAllLinesFromFile();
 
         for (String line : allLines) {
             Person person = new Person();
-            String[] arrOfStr = line.split(",", 3);
+            String[] arrOfStr = line.split(Constants.COMMA, 3);
             try {
                 person.setId(parseInt(arrOfStr[0]));
             } catch (Exception e) {

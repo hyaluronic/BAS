@@ -31,9 +31,9 @@ public class ValidationService {
             return false;
     }
 
-    public static boolean isThereSpaceCharacter(String string){
-        Pattern pattern = Pattern.compile("\\s");
-        Matcher matcher = pattern.matcher(string);
-        return matcher.find();
-    }
+//    public static boolean isThereSpaceCharacter(String string){
+//        Pattern pattern = Pattern.compile("\\s");
+//        Matcher matcher = pattern.matcher(string);
+//        return matcher.find();
+//    }
 }
