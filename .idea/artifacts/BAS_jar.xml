@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BAS:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BAS_jar</output-path>
+    <root id="archive" name="BAS.jar">
+      <element id="module-output" name="BAS" />
+    </root>
+  </artifact>
+</component>
