@@ -12,28 +12,34 @@ public class ValidationService {
         return !people.stream().anyMatch(p -> p.getId() == id);
     }
 
-    public static boolean isNameValid(String name, List<Person> people) {
-        if(!people.stream().anyMatch(p -> p.getName() == name)){
-            Pattern pattern = Pattern.compile("^[\\w]+\\s[\\w]+$");
-            Matcher matcher = pattern.matcher(name);
-            return matcher.find();
+    public static boolean isNameValid(String name) {
+        Pattern pattern = Pattern.compile("^[\\w]+\\s[\\w]+$");
+        Matcher matcher = pattern.matcher(name);
+        return matcher.find();
+    }
+
+    public static boolean isNameDuplicate(String name, List<Person> people) {
+        return people.stream().anyMatch(p -> p.getName() == name);
+    }
+
+    public static boolean isCoefficientValid(String coefficient, List<Person> people) {
+        Pattern pattern = Pattern.compile("^[\\d]+(\\.[\\d]{1,4})?$");
+        Matcher matcher = pattern.matcher(coefficient);
+        if (matcher.find()) {
+            var value = Double.parseDouble(coefficient);
+            return value >= 1 && value <= 2.5;
         }
         return false;
     }
 
-    public static boolean isCoefficientValid(String coefficient, List<Person> people) {
-            Pattern pattern = Pattern.compile("^[\\d]+(\\.[\\d]{1,4})?$");
-            Matcher matcher = pattern.matcher(coefficient);
-            if(matcher.find()){
-                var value = Double.parseDouble(coefficient);
-                return value>=1&&value<=2.5;
-            }
+    public static boolean isThereUnnecessarySpaceCharacter(String string) {
+        if(string.isBlank()){
             return false;
+        }
+        else{
+            Pattern pattern = Pattern.compile("\\s");
+            Matcher matcher = pattern.matcher(string);
+            return matcher.find();
+        }
     }
-
-//    public static boolean isThereSpaceCharacter(String string){
-//        Pattern pattern = Pattern.compile("\\s");
-//        Matcher matcher = pattern.matcher(string);
-//        return matcher.find();
-//    }
 }

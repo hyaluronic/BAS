@@ -8,10 +8,10 @@ public class Constants {
 
     public enum Results {
         GOOD(" PRIIMTA"),
-//        BAD_SPACE(" ATMESTA - papildomas tarpas"),
-        BAD_DATA(" ATMESTA - neteisingai  atskirti duomenys"),
-        BAD_ID(" ATMESTA - Kartojasi ID"),
-        BAD_NAME(" ATMESTA - neteisingas vardas"),
+        BAD_SPACE(" ATMESTA - papildomas tarpas"),
+        BAD_DATA(" ATMESTA - neteisingai atskirti duomenys"),
+        BAD_ID(" ATMESTA - kartojasi ID"),
+        BAD_NAME(" ATMESTA - kartojasi vardas"),
         BAD_COEFFICIENT(" ATMESTA - neteisingas koeficientas");
 
         private final String resultValues;

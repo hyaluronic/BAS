@@ -7,7 +7,6 @@ import com.company.Infrastructure.FileWriter;
 import com.company.Service.ValidationService;
 
 import java.io.IOException;
-import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,30 +23,42 @@ public class Main {
         for (String line : allLines) {
             Person person = new Person();
             String[] arrOfStr = line.split(Constants.COMMA, 3);
-            try {
-                person.setId(parseInt(arrOfStr[0]));
-            } catch (Exception e) {
-                writer.writeLineToFile(line + Constants.Results.BAD_DATA.toString());
-                System.out.println(line + Constants.Results.BAD_DATA.toString());
-                continue;
-            }
-            person.setName(arrOfStr[1]);
-            person.setCoefficient(arrOfStr[2]);
-
-            if (!ValidationService.isIdValid(person.getId(), people)) {
-                writer.writeLineToFile(line + Constants.Results.BAD_ID.toString());
-                System.out.println(line + Constants.Results.BAD_ID.toString());
-            } else if (!ValidationService.isNameValid(person.getName(), people)) {
-                writer.writeLineToFile(line + Constants.Results.BAD_NAME.toString());
-                System.out.println(person.toString() + Constants.Results.BAD_NAME.toString());
-            } else if (!ValidationService.isCoefficientValid(person.getCoefficient(), people)) {
-                writer.writeLineToFile(line + Constants.Results.BAD_COEFFICIENT.toString());
-                System.out.println(person.toString() + Constants.Results.BAD_COEFFICIENT.toString());
+            if (ValidationService.isThereUnnecessarySpaceCharacter(arrOfStr[0])) {
+                writer.writeLineToFile(line + Constants.Results.BAD_SPACE.toString());
+                System.out.println(line + Constants.Results.BAD_SPACE.toString());
             } else {
-                people.add(person);
-                writer.writeLineToFile(line + Constants.Results.GOOD.toString());
-                System.out.println(line + Constants.Results.GOOD.toString());
+                try {
+                    person.setId(parseInt(arrOfStr[0]));
+                } catch (Exception e) {
+                    writer.writeLineToFile(line + Constants.Results.BAD_DATA.toString());
+                    System.out.println(line + Constants.Results.BAD_DATA.toString());
+                    continue;
+                }
+                person.setName(arrOfStr[1]);
+                person.setCoefficient(arrOfStr[2]);
+
+                if (!ValidationService.isIdValid(person.getId(), people)) {
+                    writer.writeLineToFile(line + Constants.Results.BAD_ID.toString());
+                    System.out.println(line + Constants.Results.BAD_ID.toString());
+                } else if (!ValidationService.isNameValid(person.getName())) {
+                    writer.writeLineToFile(line + Constants.Results.BAD_SPACE.toString());
+                    System.out.println(person.toString() + Constants.Results.BAD_SPACE.toString());
+                } else if (ValidationService.isNameDuplicate(person.getName(), people)) {
+                    writer.writeLineToFile(line + Constants.Results.BAD_NAME.toString());
+                    System.out.println(person.toString() + Constants.Results.BAD_NAME.toString());
+                } else if (ValidationService.isThereUnnecessarySpaceCharacter(person.getCoefficient())) {
+                    writer.writeLineToFile(line + Constants.Results.BAD_SPACE.toString());
+                    System.out.println(person.toString() + Constants.Results.BAD_SPACE.toString());
+                } else if (!ValidationService.isCoefficientValid(person.getCoefficient(), people)) {
+                    writer.writeLineToFile(line + Constants.Results.BAD_COEFFICIENT.toString());
+                    System.out.println(person.toString() + Constants.Results.BAD_COEFFICIENT.toString());
+                } else {
+                    people.add(person);
+                    writer.writeLineToFile(line + Constants.Results.GOOD.toString());
+                    System.out.println(line + Constants.Results.GOOD.toString());
+                }
             }
+
         }
         writer.closeFile();
     }
