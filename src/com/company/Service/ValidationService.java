@@ -19,7 +19,7 @@ public class ValidationService {
     }
 
     public static boolean isNameDuplicate(String name, List<Person> people) {
-        return people.stream().anyMatch(p -> p.getName() == name);
+        return people.stream().anyMatch(p -> p.getName().equals(name));
     }
 
     public static boolean isCoefficientValid(String coefficient, List<Person> people) {

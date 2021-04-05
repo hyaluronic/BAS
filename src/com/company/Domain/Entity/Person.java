@@ -9,10 +9,6 @@ public class Person {
 
     }
 
-    public String toString() {
-        return id + "," + name + "," + coefficient;
-    }
-
     public String getCoefficient() {
         return coefficient;
     }

@@ -21,44 +21,33 @@ public class Main {
         List<String> allLines = reader.readAllLinesFromFile();
 
         for (String line : allLines) {
-            Person person = new Person();
             String[] arrOfStr = line.split(Constants.COMMA, 3);
-            if (ValidationService.isThereUnnecessarySpaceCharacter(arrOfStr[0])) {
-                writer.writeLineToFile(line + Constants.Results.BAD_SPACE.toString());
-                System.out.println(line + Constants.Results.BAD_SPACE.toString());
-            } else {
-                try {
-                    person.setId(parseInt(arrOfStr[0]));
-                } catch (Exception e) {
-                    writer.writeLineToFile(line + Constants.Results.BAD_DATA.toString());
-                    System.out.println(line + Constants.Results.BAD_DATA.toString());
-                    continue;
-                }
-                person.setName(arrOfStr[1]);
-                person.setCoefficient(arrOfStr[2]);
-
-                if (!ValidationService.isIdValid(person.getId(), people)) {
-                    writer.writeLineToFile(line + Constants.Results.BAD_ID.toString());
-                    System.out.println(line + Constants.Results.BAD_ID.toString());
-                } else if (!ValidationService.isNameValid(person.getName())) {
-                    writer.writeLineToFile(line + Constants.Results.BAD_SPACE.toString());
-                    System.out.println(person.toString() + Constants.Results.BAD_SPACE.toString());
-                } else if (ValidationService.isNameDuplicate(person.getName(), people)) {
-                    writer.writeLineToFile(line + Constants.Results.BAD_NAME.toString());
-                    System.out.println(person.toString() + Constants.Results.BAD_NAME.toString());
-                } else if (ValidationService.isThereUnnecessarySpaceCharacter(person.getCoefficient())) {
-                    writer.writeLineToFile(line + Constants.Results.BAD_SPACE.toString());
-                    System.out.println(person.toString() + Constants.Results.BAD_SPACE.toString());
-                } else if (!ValidationService.isCoefficientValid(person.getCoefficient(), people)) {
-                    writer.writeLineToFile(line + Constants.Results.BAD_COEFFICIENT.toString());
-                    System.out.println(person.toString() + Constants.Results.BAD_COEFFICIENT.toString());
+            String result;
+            try {
+                int id = parseInt(arrOfStr[0]);
+                if (ValidationService.isThereUnnecessarySpaceCharacter(arrOfStr[0])
+                        || !ValidationService.isNameValid(arrOfStr[1])
+                        || ValidationService.isThereUnnecessarySpaceCharacter(arrOfStr[2])) {
+                    result = line + Constants.Results.BAD_SPACE.toString();
+                } else if (!ValidationService.isIdValid(id, people)) {
+                    result = line + Constants.Results.BAD_ID.toString();
+                } else if (ValidationService.isNameDuplicate(arrOfStr[1], people)) {
+                    result = line + Constants.Results.BAD_NAME.toString();
+                } else if (!ValidationService.isCoefficientValid(arrOfStr[2], people)) {
+                    result = line + Constants.Results.BAD_COEFFICIENT.toString();
                 } else {
+                    Person person = new Person();
+                    person.setId(id);
+                    person.setName(arrOfStr[1]);
+                    person.setCoefficient(arrOfStr[2]);
                     people.add(person);
-                    writer.writeLineToFile(line + Constants.Results.GOOD.toString());
-                    System.out.println(line + Constants.Results.GOOD.toString());
+                    result = line + Constants.Results.GOOD.toString();
                 }
+            } catch (Exception e) {
+                result = line + Constants.Results.BAD_DATA.toString();
             }
-
+            writer.writeLineToFile(result);
+            System.out.println(result);
         }
         writer.closeFile();
     }
