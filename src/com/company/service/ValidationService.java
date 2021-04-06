@@ -1,6 +1,6 @@
-package com.company.Service;
+package com.company.service;
 
-import com.company.Domain.Entity.Person;
+import com.company.domain.entity.Person;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class ValidationService {
 
     public static boolean isIdValid(int id, List<Person> people) {
-        return !people.stream().anyMatch(p -> p.getId() == id);
+        return people.stream().noneMatch(p -> p.getId() == id);
     }
 
     public static boolean isNameValid(String name) {
@@ -22,7 +22,7 @@ public class ValidationService {
         return people.stream().anyMatch(p -> p.getName().equals(name));
     }
 
-    public static boolean isCoefficientValid(String coefficient, List<Person> people) {
+    public static boolean isCoefficientValid(String coefficient) {
         Pattern pattern = Pattern.compile("^[\\d]+(\\.[\\d]{1,4})?$");
         Matcher matcher = pattern.matcher(coefficient);
         if (matcher.find()) {
@@ -32,14 +32,14 @@ public class ValidationService {
         return false;
     }
 
-    public static boolean isThereUnnecessarySpaceCharacter(String string) {
-        if(string.isBlank()){
-            return false;
-        }
-        else{
-            Pattern pattern = Pattern.compile("\\s");
-            Matcher matcher = pattern.matcher(string);
-            return matcher.find();
-        }
+    public static boolean checkForSpaceCharacter(String string) {
+        Pattern pattern = Pattern.compile("\\s");
+        Matcher matcher = pattern.matcher(string);
+        return matcher.find();
+    }
+
+    public static boolean checkForAdditionalSpaceCharacters(String string) {
+        String[] nameSplitBySpace = string.split(" ", 3);
+        return nameSplitBySpace.length>2;
     }
 }

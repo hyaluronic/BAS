@@ -1,4 +1,4 @@
-package com.company.Domain.Entity;
+package com.company.domain.entity;
 
 public class Person {
     private int id;
@@ -6,15 +6,11 @@ public class Person {
     private String coefficient;
 
     public Person() {
-
     }
 
-    public String getCoefficient() {
-        return coefficient;
-    }
 
-    public void setCoefficient(String coeficient) {
-        this.coefficient = coeficient;
+    public void setCoefficient(String coefficient) {
+        this.coefficient = coefficient;
     }
 
     public int getId() {

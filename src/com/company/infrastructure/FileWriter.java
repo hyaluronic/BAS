@@ -1,4 +1,4 @@
-package com.company.Infrastructure;
+package com.company.infrastructure;
 
 import java.io.IOException;
 

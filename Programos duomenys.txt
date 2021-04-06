@@ -1,11 +1,18 @@
 1,Tommie Traylor,1.234556
+,,
+,
+ , ,
+13,,1.1
+2, ,1.1
+3,a,1.1
+
 2,Corey Peter,2.345
 3,Ike Bolton,1.7564
 4, Milton Boatwright, 1.54565765
 2,Stu Badcock,1.3827
 6,Hamilton Peacock,1,432
 5,Elias Sweet, 1.234567
-6, Barclay Rowland,
+6, Barclay Rowland,1.5
 7.Burt Alan,1.sdasd
 8,Terry Richardson,1.3454
 9,Dawson Rennold,5,332

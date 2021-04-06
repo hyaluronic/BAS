@@ -1,10 +1,10 @@
 package com.company;
 
-import com.company.Domain.Constants;
-import com.company.Domain.Entity.Person;
-import com.company.Infrastructure.FileReader;
-import com.company.Infrastructure.FileWriter;
-import com.company.Service.ValidationService;
+import com.company.domain.ResultsEnum;
+import com.company.domain.entity.Person;
+import com.company.infrastructure.FileReader;
+import com.company.infrastructure.FileWriter;
+import com.company.service.ValidationService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,39 +12,56 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
+
 public class Main {
 
+    public static final String COMMA = ",";
+    private static final String INPUT_FILE = "/Users/user/Desktop/BAS/Programos duomenys.txt";
+    private static final String OUTPUT_FILE = "/Users/user/Desktop/BAS/out.txt";
+
     public static void main(String[] args) throws IOException {
-        FileReader reader = new FileReader(Constants.INPUT_FILE);
-        FileWriter writer = new FileWriter(Constants.OUTPUT_FILE);
+        FileReader reader = new FileReader(INPUT_FILE);
+        FileWriter writer = new FileWriter(OUTPUT_FILE);
         List<Person> people = new ArrayList<>();
         List<String> allLines = reader.readAllLinesFromFile();
 
         for (String line : allLines) {
-            String[] arrOfStr = line.split(Constants.COMMA, 3);
-            String result;
+            String[] lineSplitByComma = line.split(COMMA, 3);
+            String result = line;
             try {
-                int id = parseInt(arrOfStr[0]);
-                if (ValidationService.isThereUnnecessarySpaceCharacter(arrOfStr[0])
-                        || !ValidationService.isNameValid(arrOfStr[1])
-                        || ValidationService.isThereUnnecessarySpaceCharacter(arrOfStr[2])) {
-                    result = line + Constants.Results.BAD_SPACE.toString();
-                } else if (!ValidationService.isIdValid(id, people)) {
-                    result = line + Constants.Results.BAD_ID.toString();
-                } else if (ValidationService.isNameDuplicate(arrOfStr[1], people)) {
-                    result = line + Constants.Results.BAD_NAME.toString();
-                } else if (!ValidationService.isCoefficientValid(arrOfStr[2], people)) {
-                    result = line + Constants.Results.BAD_COEFFICIENT.toString();
+                if (lineSplitByComma.length < 3) {
+                    result += ResultsEnum.Results.INVALID_DATA.toString();
+                } else if (lineSplitByComma[0].isBlank()) {
+                    result += ResultsEnum.Results.INVALID_NO_ID.toString();
+                } else if (lineSplitByComma[1].isBlank()) {
+                    result += ResultsEnum.Results.INVALID_NO_NAME.toString();
+                } else if (lineSplitByComma[2].isBlank()) {
+                    result += ResultsEnum.Results.INVALID_NO_COEFFICIENT.toString();
                 } else {
-                    Person person = new Person();
-                    person.setId(id);
-                    person.setName(arrOfStr[1]);
-                    person.setCoefficient(arrOfStr[2]);
-                    people.add(person);
-                    result = line + Constants.Results.GOOD.toString();
+                    int id = parseInt(lineSplitByComma[0]);
+                    if (ValidationService.checkForSpaceCharacter(lineSplitByComma[0])
+                            || ValidationService.checkForAdditionalSpaceCharacters(lineSplitByComma[1])
+                            || ValidationService.checkForSpaceCharacter(lineSplitByComma[2])) {
+                        result += ResultsEnum.Results.INVALID_SPACE.toString();
+                    } else if (!ValidationService.isIdValid(id, people)) {
+                        result += ResultsEnum.Results.INVALID_ID_DUPLICATE.toString();
+                    } else if (!ValidationService.isNameValid(lineSplitByComma[1])) {
+                        result += ResultsEnum.Results.INVALID_NAME.toString();
+                    } else if (ValidationService.isNameDuplicate(lineSplitByComma[1], people)) {
+                        result += ResultsEnum.Results.INVALID_NAME_DUPLICATE.toString();
+                    } else if (!ValidationService.isCoefficientValid(lineSplitByComma[2])) {
+                        result += ResultsEnum.Results.INVALID_COEFFICIENT.toString();
+                    } else {
+                        Person person = new Person();
+                        person.setId(id);
+                        person.setName(lineSplitByComma[1]);
+                        person.setCoefficient(lineSplitByComma[2]);
+                        people.add(person);
+                        result += ResultsEnum.Results.VALID.toString();
+                    }
                 }
             } catch (Exception e) {
-                result = line + Constants.Results.BAD_DATA.toString();
+                result += ResultsEnum.Results.INVALID_ID.toString();
             }
             writer.writeLineToFile(result);
             System.out.println(result);
