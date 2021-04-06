@@ -1,4 +1,4 @@
-package com.company.domain;
+package com.company.domain.constants;
 
 public class ResultsEnum {
 
@@ -9,7 +9,6 @@ public class ResultsEnum {
         INVALID_NO_NAME(" ATMESTA - nera vardo ir pavardes"),
         INVALID_NO_COEFFICIENT(" ATMESTA - nera koeficiento"),
         INVALID_SPACE(" ATMESTA - papildomas tarpas"),
-//        INVALID_DATA(" ATMESTA - neteisingai atskirti duomenys"),
         INVALID_ID(" ATMESTA - blogas ID"),
         INVALID_ID_DUPLICATE(" ATMESTA - kartojasi ID"),
         INVALID_NAME(" ATMESTA - blogas vardas ir pavarde"),
