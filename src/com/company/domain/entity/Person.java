@@ -3,13 +3,12 @@ package com.company.domain.entity;
 public class Person {
     private int id;
     private String name;
-    private String coefficient;
+    private double coefficient;
 
     public Person() {
     }
 
-
-    public void setCoefficient(String coefficient) {
+    public void setCoefficient(double coefficient) {
         this.coefficient = coefficient;
     }
 

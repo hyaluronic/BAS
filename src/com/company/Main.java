@@ -38,7 +38,7 @@ public class Main {
                     Person person = new Person();
                     person.setId(parseInt(lineSplitByComma[0]));
                     person.setName(lineSplitByComma[1]);
-                    person.setCoefficient(lineSplitByComma[2]);
+                    person.setCoefficient(Double.parseDouble(lineSplitByComma[2]));
                     people.add(person);
 
                     message = ResultsEnum.Results.VALID.toString();
