@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static java.lang.Integer.parseInt;
 
 
@@ -48,7 +47,6 @@ public class Main {
             }
             result = line + message;
             writer.writeLineToFile(result);
-            System.out.println(result);
         }
         writer.closeFile();
     }
